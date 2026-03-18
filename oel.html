@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urban Jungle – Boutique Plant Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <a class="nav-logo" href="#">🌿 Urban<span>Jungle</span></a>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#products">Shop</a></li>
+    <li><a href="#care">Plant Care</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-actions">
+    
+      <button class="theme-toggle" id="themeToggle" onclick="toggleDarkMode()">🌙 Dark</button>
+
+    <button class="cart-btn" onclick="toggleCart()">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero" onclick="closeMenu()">Home</a>
+  <a href="#products" onclick="closeMenu()">Shop</a>
+  <a href="#care" onclick="closeMenu()">Plant Care</a>
+  <a href="#reviews" onclick="closeMenu()">Reviews</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h2>Your Cart 🛒</h2>
+    <button class="close-cart" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty"><div class="empty-icon">🪴</div><p>Your cart is empty.<br>Add some plants!</p></div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total"><span>Total</span><span id="cartTotal">$0.00</span></div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">🌱 Boutique Plant Shop · Est. 2020</div>
+    <h1 class="hero-title">Bring <em>Nature</em> Into Your Space</h1>
+    <p class="hero-sub">Carefully curated indoor & outdoor plants for homes and offices. Quality plants, expert care guidance, and an experience that reflects the personality of Urban Jungle.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">🌿 Shop Plants</a>
+      <a href="#care" class="btn-outline">Learn Plant Care</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-plant-card">🌵</div>
+    <div class="floating-tag tag1"><div class="tag-dot"></div>200+ Varieties</div>
+    <div class="floating-tag tag2"><div class="tag-dot" style="background:var(--gold)"></div>Expert Care Tips</div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="reveal">
+    <span class="section-label">Our Collection</span>
+    <h2 class="section-title">Featured Plants</h2>
+    <p class="section-desc">Every plant displayed with detailed info — pricing, pot size, care instructions, and more. Use dummy values for add-to-cart.</p>
+  </div>
+
+  <div class="search-filter-bar reveal">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search plants…" oninput="filterProducts()">
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="setFilter('all',this)">All</button>
+      <button class="filter-tab" onclick="setFilter('indoor',this)">Indoor</button>
+      <button class="filter-tab" onclick="setFilter('outdoor',this)">Outdoor</button>
+      <button class="filter-tab" onclick="setFilter('succulent',this)">Succulents</button>
+      <button class="filter-tab" onclick="setFilter('tropical',this)">Tropical</button>
+    </div>
+    <select class="sort-select" onchange="sortProducts(this.value)">
+      <option value="default">Sort: Featured</option>
+      <option value="price-asc">Price: Low to High</option>
+      <option value="price-desc">Price: High to Low</option>
+      <option value="name">Name A–Z</option>
+      <option value="rating">Top Rated</option>
+    </select>
+  </div>
+
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- FEATURED INFO -->
+<section id="featured">
+  <div>
+    <span class="section-label">Why Urban Jungle</span>
+    <h2 class="section-title">More Than Just Plants</h2>
+    <p class="section-desc">We're here to help you find the perfect plant and keep it thriving — with expert guidance every step of the way.</p>
+  </div>
+  <div class="feature-list">
+    <div class="feature-item reveal">
+      <div class="feature-icon">🌱</div>
+      <div><div class="feature-title">Curated Selection</div><div class="feature-desc">Only the healthiest, most beautiful plants make it to our collection — handpicked by botanists.</div></div>
+    </div>
+    <div class="feature-item reveal reveal-delay-1">
+      <div class="feature-icon">🚚</div>
+      <div><div class="feature-title">Safe Delivery</div><div class="feature-desc">Custom packaging ensures your plants arrive safe, fresh, and ready to thrive in their new home.</div></div>
+    </div>
+    <div class="feature-item reveal reveal-delay-2">
+      <div class="feature-icon">💬</div>
+      <div><div class="feature-title">Expert Advice</div><div class="feature-desc">Our in-house plant specialists are available to answer any care questions you have.</div></div>
+    </div>
+    <div class="feature-item reveal reveal-delay-3">
+      <div class="feature-icon">♻️</div>
+      <div><div class="feature-title">Eco-Friendly</div><div class="feature-desc">Sustainable sourcing and biodegradable packaging — good for your home and the planet.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CARE GUIDE -->
+<section id="care">
+  <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto 3rem;">
+    <span class="section-label">Plant Care Guide</span>
+    <h2 class="section-title">Keep Your Plants Happy</h2>
+    <p class="section-desc">Essential tips on watering, light, and maintenance to help your plants flourish.</p>
+  </div>
+  <div class="care-grid">
+    <div class="care-card reveal">
+      <div class="icon">☀️</div>
+      <h3>Light</h3>
+      <p>Most indoor plants thrive in bright, indirect sunlight. Avoid direct afternoon sun which can scorch leaves.</p>
+    </div>
+    <div class="care-card reveal reveal-delay-1">
+      <div class="icon">💧</div>
+      <h3>Watering</h3>
+      <p>Water when the top inch of soil feels dry. Overwatering is the #1 plant killer — less is more.</p>
+    </div>
+    <div class="care-card reveal reveal-delay-2">
+      <div class="icon">🌡️</div>
+      <h3>Temperature</h3>
+      <p>Most plants prefer 60–80°F (15–27°C). Keep away from drafts, air vents, and cold windows.</p>
+    </div>
+    <div class="care-card reveal reveal-delay-3">
+      <div class="icon">🌫️</div>
+      <h3>Humidity</h3>
+      <p>Tropical plants love humidity. Mist regularly or place a pebble tray with water beneath the pot.</p>
+    </div>
+    <div class="care-card reveal">
+      <div class="icon">🪱</div>
+      <h3>Soil</h3>
+      <p>Use well-draining potting mix. Add perlite for succulents. Repot every 1–2 years as the plant grows.</p>
+    </div>
+    <div class="care-card reveal reveal-delay-1">
+      <div class="icon">🌿</div>
+      <h3>Fertilizing</h3>
+      <p>Feed monthly during spring and summer with a balanced liquid fertilizer. Skip feeding in winter.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="reveal">
+    <span class="section-label">Customer Stories</span>
+    <h2 class="section-title">What Our Plant Parents Say</h2>
+    <p class="section-desc">Real reviews from happy customers who've transformed their spaces with Urban Jungle plants.</p>
+  </div>
+  <div class="reviews-grid" id="reviewsGrid"></div>
+  <button class="add-review-btn reveal" onclick="openReviewModal()">✍️ Write a Review</button>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div>
+    <span class="section-label">Get in Touch</span>
+    <h2 class="section-title">We'd Love to Hear From You</h2>
+    <p class="section-desc">Have questions about a plant or your order? Our team is ready to help.</p>
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-item-icon">📍</div>
+        <div class="contact-item-text">
+          <div class="contact-item-label">Visit Us</div>
+          42 Botanical Lane, Green District, Karachi
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">📞</div>
+        <div class="contact-item-text">
+          <div class="contact-item-label">Call Us</div>
+          +92 3052236317
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">✉️</div>
+        <div class="contact-item-text">
+          <div class="contact-item-label">Email Us</div>
+          HamzaKhaliq@gmail.com
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-item-icon">🕐</div>
+        <div class="contact-item-text">
+          <div class="contact-item-label">Hours</div>
+          Mon–Sat: 9am–8pm · Sun: 10am–6pm
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-form reveal">
+    <div class="form-group">
+      <label>Your Name *</label>
+      <input type="text" id="contactName" placeholder="Ali Hassan">
+      <div class="field-error" id="contactNameErr">Please enter your name.</div>
+    </div>
+    <div class="form-group">
+      <label>Email Address *</label>
+      <input type="email" id="contactEmail" placeholder="ali@example.com">
+      <div class="field-error" id="contactEmailErr">Please enter a valid email.</div>
+    </div>
+    <div class="form-group">
+      <label>Subject</label>
+      <select id="contactSubject">
+        <option value="">Select a topic…</option>
+        <option>Plant Care Question</option>
+        <option>Order Inquiry</option>
+        <option>Custom Order</option>
+        <option>Wholesale</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Message *</label>
+      <textarea id="contactMessage" placeholder="Tell us how we can help…"></textarea>
+      <div class="field-error" id="contactMessageErr">Please write a message.</div>
+    </div>
+    <button class="send-btn" onclick="sendContact()">📬 Send Message</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="nav-logo" href="#">🌿 Urban<span style="color:var(--terracotta)">Jungle</span></a>
+      <p>Boutique plant shop bringing the beauty of nature into homes and offices across Pakistan.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#products">All Plants</a></li>
+        <li><a href="#">Indoor Plants</a></li>
+        <li><a href="#">Outdoor Plants</a></li>
+        <li><a href="#">Succulents</a></li>
+        <li><a href="#">New Arrivals</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Care</h4>
+      <ul>
+        <li><a href="#care">Care Guide</a></li>
+        <li><a href="#">Watering Tips</a></li>
+        <li><a href="#">Light Guide</a></li>
+        <li><a href="#">FAQs</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Urban Jungle Boutique. All rights reserved.</span>
+    <span>Made with 🌿 for plant lovers</span>
+  </div>
+</footer>
+
+<!-- REVIEW MODAL -->
+<div class="modal-overlay" id="reviewModal">
+  <div class="modal">
+    <h3>✍️ Write Your Review</h3>
+    <div class="form-group">
+      <label>Your Name *</label>
+      <input type="text" id="reviewName" placeholder="Your name">
+      <div class="field-error" id="reviewNameErr">Please enter your name.</div>
+    </div>
+    <div class="form-group">
+      <label>Rating *</label>
+      <div class="star-picker" id="starPicker">
+        <button class="star-btn" data-val="1" onclick="setRating(1)">★</button>
+        <button class="star-btn" data-val="2" onclick="setRating(2)">★</button>
+        <button class="star-btn" data-val="3" onclick="setRating(3)">★</button>
+        <button class="star-btn" data-val="4" onclick="setRating(4)">★</button>
+        <button class="star-btn" data-val="5" onclick="setRating(5)">★</button>
+      </div>
+      <div class="field-error" id="reviewRatingErr">Please select a rating.</div>
+    </div>
+    <div class="form-group">
+      <label>Your Review *</label>
+      <textarea id="reviewText" placeholder="Share your experience with us…"></textarea>
+      <div class="field-error" id="reviewTextErr">Please write your review.</div>
+    </div>
+    <div class="modal-actions">
+      <button class="cancel-modal" onclick="closeReviewModal()">Cancel</button>
+      <button class="submit-review" onclick="submitReview()">Submit Review ✓</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="product-modal-overlay" id="productModal">
+  <div class="product-modal" id="productModalInner">
+    <button class="pm-close" onclick="closeProductModal()">✕</button>
+    <div class="pm-left" id="pmEmoji"></div>
+    <div class="pm-right">
+      <div class="pm-type" id="pmType"></div>
+      <div class="pm-name" id="pmName"></div>
+      <div class="pm-stars" id="pmStars"></div>
+      <div class="pm-desc" id="pmDesc"></div>
+      <div class="pm-details" id="pmDetails"></div>
+      <div class="pm-price" id="pmPrice"></div>
+      <button class="pm-add-btn" id="pmAddBtn">🛒 Add to Cart</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+<script src="oel.js"></script>
+
+</body>
+</html>
